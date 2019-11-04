@@ -1,5 +1,7 @@
 const express = require('express');
 const DevController = require('./controllers/DevController');
+const LikeController = require('./controllers/LikeController');
+const DeslikeController = require('./controllers/DeslikeController');
 
 const routes = express.Router(); // Router é uma função que permite a criação de um obejto específico para rotes, no caso o objeto criado é routes, que será utilizado no lugar do server
 
@@ -17,6 +19,7 @@ routes.post('/devs', (req, res) =>{
 
 // ao invés do método acima, pode ser o usado o seguinte
 routes.post('/devs', DevController.store); //quando essa rota for acessada, o DevController será chamado
-
+routes.post('/devs/:devId/likes', LikeController.store);
+routes.post('/devs/:devId/deslikes', DeslikeController.store);
 
 module.exports = routes; // para exportar as rotas, para que o nosso servidor conheça essas rotas 

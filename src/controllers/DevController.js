@@ -16,6 +16,7 @@ module.exports = {
         const response = await axios.get(`https://api.github.com/users/${username}`); //busca informações na api do usuário
         
         console.log(response.data);
+        console.log(bio);
         
         //resposta que o axios vai retornar
 

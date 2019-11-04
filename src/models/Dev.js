@@ -17,6 +17,15 @@ const DevSchema = new Schema({ //criação de um Schema
         required: true,
     },
 
+    likes: [{ //serão referenciados pelo ID os devs
+        type: Schema.Types.ObjectId,
+        ref: 'Dev', // referenciando a 'tabela' Dev
+    }],
+    deslikes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Dev', 
+    }],
+
 
 }, {
     timestamps: true, //vai criar uma coluna de forma automática, chamada createdAt(armazena a data de criação do registro) em cada registro e uma outra coluna chamada updatedAt (atualiza a data de alteração do registro)
