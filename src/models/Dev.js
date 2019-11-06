@@ -2,8 +2,7 @@ const {Schema, model} =  require('mongoose'); //importação de recursos do mong
 
 const DevSchema = new Schema({ //criação de um Schema
     name:{ //objeto name, nome do desenvolvedor
-        type: String,
-        required: true, //obrigatório o preenchimento do nome
+        type: String
     },
 
     user:{
@@ -14,7 +13,7 @@ const DevSchema = new Schema({ //criação de um Schema
     bio: String,
     avatar: {
         type: String, //vai retornar o endereço da imagem
-        required: true,
+        
     },
 
     likes: [{ //serão referenciados pelo ID os devs

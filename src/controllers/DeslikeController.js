@@ -20,3 +20,4 @@ module.exports = {
         /*return res.json({ deu_bom_jordan: true});*/ //substituído pelo retorno acima
     }
 };
+

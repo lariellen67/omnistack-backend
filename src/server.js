@@ -1,5 +1,6 @@
 const express = require('express');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const cors = require('cors');
 const routes = require('./routes');
 
 const server = express(); //criação do servidor do express
@@ -25,6 +26,7 @@ server.get('/', (req, res) => { //resposta de acordo com o parâmetro enviado na
 server.listen(3333); 
 */
 
+server.use(cors()); 
 server.use(express.json()); // para o express saber que será usado json
 server.use(routes); //para usar o routes que está em outro arquivo
 server.listen(3333); 

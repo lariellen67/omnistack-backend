@@ -18,6 +18,7 @@ routes.post('/devs', (req, res) =>{
 });*/
 
 // ao invés do método acima, pode ser o usado o seguinte
+routes.get('/devs', DevController.index);
 routes.post('/devs', DevController.store); //quando essa rota for acessada, o DevController será chamado
 routes.post('/devs/:devId/likes', LikeController.store);
 routes.post('/devs/:devId/deslikes', DeslikeController.store);
