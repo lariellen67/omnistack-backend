@@ -3,7 +3,33 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const routes = require('./routes');
 
-const server = express(); //criação do servidor do express
+const app = express(); //criação do servidor do express
+const server = require('http').Server(app); // união do servidor http ao servidor do web socket, para aceitar os dois tipos de conexão
+const io = require('socket.io')(server); 
+
+const connectedUsers = {}
+
+io.on('connection', socket => { //toda vez que o usuário se conectar com a aplicação pelo websocket, será recebido o socket
+    const { user } = socket.handshake.query;
+
+    console.log(user, socket.id)
+
+    connectedUsers[user] = socket.id;
+
+
+    /*console.log('Funcionou a nova conexão', socket.id); //ponte direta entre o front e backend
+
+    socket.on('joey says', message => { //ouvindo a mensagem do frontend
+        console.log(message);
+    }) 
+
+    setTimeout(() => { //o backend também consegue enviar mensagens para o frontend
+        socket.emit('rachel says', {
+            message: 'Im doing good baby. How you doin?'
+        });
+    }, 5000)*/
+
+});
 
 mongoose.connect('mongodb+srv://omnistack:omnistack1@cluster0-uacyv.mongodb.net/omnistack8?retryWrites=true&w=majority', {useNewUrlParser: true});
 
@@ -26,8 +52,15 @@ server.get('/', (req, res) => { //resposta de acordo com o parâmetro enviado na
 server.listen(3333); 
 */
 
-server.use(cors()); 
-server.use(express.json()); // para o express saber que será usado json
-server.use(routes); //para usar o routes que está em outro arquivo
+app.use((req, res, next) => {
+    req.io = io;
+    req.connectedUsers = connectedUsers;
+    return next();
+});
+
+app.use(cors()); 
+app.use(express.json()); // para o express saber que será usado json
+app.use(routes); //para usar o routes que está em outro arquivo
 server.listen(3333); 
+//faz o backend ouvir o protocolo de web socket, além do protocolo HTTP
 
